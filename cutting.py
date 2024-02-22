@@ -151,7 +151,7 @@ def main(args):
     _req_video = detools.get_request_video(model_request_dict) ##TODO##
     if dev_mode:
         _req_video=os.path.join(APP_PATH, "sample.mp4")
-        _req_text = "start-cut-video@00:00:10;end-cut-video@ 1 minute 25 Seconds"
+        _req_text = "start-cut-video@00:00:10;end-cut-video@ 25 Seconds"
         #print('devmode')
     #print(model_request_dict)
     if isinstance(_req_video, list):
