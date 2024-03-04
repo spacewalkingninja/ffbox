@@ -30,6 +30,7 @@ for %%a in ("%UserProfile%\..") do set "test1_path=%%~fa"
 :: Model VARS
 set model_name=ffbox
 set model_path_basepath=Desota\Desota_Models\%model_name%
+set transformers_env=Desota\Portables\Transformers\env\python
 set python_main_basepath=%model_path_basepath%\main.py
 
 :: - Miniconda (virtual environment) Vars
@@ -159,6 +160,9 @@ ECHO.
 ECHO %info_h1%Step 1/2 - Move (cd) to Project Path%ansi_end%
 call cd %model_path% >NUL 2>NUL
 
+@echo %conda_path% > condapath.txt
+
+@echo %transformers_env% > envpath.txt
 :: Install Conda Required
 ::ECHO.
 ::ECHO %info_h1%Step 2/6 - Install Miniconda for Project%ansi_end%

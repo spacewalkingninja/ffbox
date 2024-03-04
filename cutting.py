@@ -64,7 +64,7 @@ def trim_video(video_in, video_out, tstart, tend):
         endstr = " "
     else:
         endstr = f" -to {tend} "
-    subprocess.check_call(f'{FFMPEG} -i "{video_in}" -ss {tstart}{endstr}-vcodec libx264 -acodec libvo_aacenc -y {trimmed_file}', shell=True)
+    subprocess.check_call(f'{FFMPEG} -i "{video_in}" -ss {tstart}{endstr}-vcodec libx264 -acodec aac -y {trimmed_file} ', shell=False)
     #subprocess.check_call(f'ffmpeg -i {soundfile} -t {tmax} -y {trimmed_file}', shell=True)
     #print(f"Trimmed sound file saved as: {trimmed_file}")
     return trimmed_file
@@ -95,7 +95,8 @@ def main(args):
     9 = REINSTALL MODEL (critical fail)
     '''
     print('hello')
-
+    if not os.path.exists(TMP_PATH):
+        os.makedirs(TMP_PATH)
     for filename in os.listdir(TMP_PATH):
         file_path = os.path.join(TMP_PATH, filename)
         try:
@@ -151,7 +152,7 @@ def main(args):
     _req_video = detools.get_request_video(model_request_dict) ##TODO##
     if dev_mode:
         _req_video=os.path.join(APP_PATH, "sample.mp4")
-        _req_text = "start-cut-video@00:00:10;end-cut-video@ 19 Seconds"
+        _req_text = "start-cut-video@00:00:10;end-cut-video@ 1 minute 25 Seconds"
         #print('devmode')
     #print(model_request_dict)
     if isinstance(_req_video, list):
@@ -215,7 +216,7 @@ def main(args):
                     except TypeError as e2:
                         _endDS = "MAXTIME"
 
-        
+        print(_req_video)
         try:
             outfile = trim_video(_req_video, out_filepath, _startDS, _endDS)
         except:
